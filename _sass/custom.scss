@@ -1,3 +1,18 @@
 /* start custom scss snippet */
+.article__license img{
+  height: .9rem;
+}
 
+.inline-flex-center {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-mode {
+  cursor: pointer;
+  width: 1.2rem;
+  height: 1.2rem;
+  @extend .inline-flex-center;
+}
 /* end custom scss snippet */
