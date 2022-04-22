@@ -12,13 +12,13 @@ tags: Github
 
 | 限定标识    | 限定        |
 | ----------- | ----------- |
-| in:name   | 仓库名称中 |
-| in:description  | 摘要中  |
-| in:readme   | README.md中  |
-| stars:n   | star量 |
-| forks:n   | forks量 |
-| followers:n   | 关注者量 |
-| size:n   | 仓库大小 |
+| in:name   | 仓库名称中，[hello in:name](https://github.com/search?q=hello+in%3Aname){:target="_blank"} 匹配名带hello的仓库 |
+| in:description  | 摘要中，[hello in:description](https://github.com/search?q=hello+in%3Adescription){:target="_blank"} 匹配摘要有hello的仓库  |
+| in:readme   | README.md中，[hello in:readme](https://github.com/search?q=hello+in%3Areadme){:target="_blank"} 匹配README中有hello的仓库  |
+| stars:n   | star量，[stars:1000](https://github.com/search?q=stars%3A1000){:target="_blank"} 匹配星标数为1k的仓库 |
+| forks:n   | forks量，[forks:1000](https://github.com/search?q=forks%3A1000){:target="_blank"} 匹配forks数为1k的仓库 |
+| followers:n   | 关注者量，[followers:1000](https://github.com/search?q=followers%3A1000){:target="_blank"} 匹配followers数为1k的仓库 |
+| size:n   | [function size:>10000 language:python](https://github.com/search?q=function+size%3A%3E10000+language%3Apython&type=Code){:target="_blank"} 匹配含有 "function" 字样、以 Python 编写、位于大于 10 KB 的文件中的代码。 |
 | created:YYYY-MM-DD   | 创建时间 |
 | pushed:YYYY-MM-DD   | 更新时间 |
 | language:xxx   | 编程语言 |
