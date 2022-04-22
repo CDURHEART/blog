@@ -15,4 +15,9 @@
   height: 1.2rem;
   @extend .inline-flex-center;
 }
+
+a.header__brand-link {
+  font-weight: 600;
+  font-size: 22px;
+}
 /* end custom scss snippet */
