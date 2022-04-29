@@ -1,5 +1,5 @@
 ---
-title: 前端常用的设计模式
+title: 前端应该试一下的设计模式
 tags: 设计模式
 ---
 
@@ -44,16 +44,17 @@ tags: 设计模式
 将设计模式可以主要分为三大类：**_创建型模式（Creational Patterns）、结构型模式（Structural Patterns）、行为型模式（Behavioral Patterns）_**。具体哪些设计模式属于哪一种类等到我们足够了解设计模式的时再回头仔细分析。先学习一下适合前端的设计模式，边学边补充。
 
 ## 创建型
+...
+<!-- ### 工厂模式 -->
 
-### 工厂模式
-
-### 单例模式
+<!-- ### 单例模式 -->
 
 ## 结构型
+...
 
-### 装饰器模式
+<!-- ### 装饰器模式 -->
 
-### 代理模式
+<!-- ### 代理模式 -->
 
 ## 行为型
 
@@ -173,13 +174,69 @@ console.log(result); // 90
 **何时使用：**一个对象（目标对象）的状态发生改变，所有的依赖对象（观察者对象）都将得到通知，进行广播通知。<br/>
 **如何解决：**使用面向对象技术，可以将这种依赖关系弱化。<br/>
 **优点：**
+
 1. 观察者和被观察者是抽象耦合的。
 2. 建立一套触发机制。
 
 **缺点：**
+
 1. 如果一个被观察者对象有很多的直接和间接的观察者的话，将所有的观察者都通知到会花费很多时间。
 2. 如果在观察者和观察目标之间有循环依赖的话，观察目标会触发它们之间进行循环调用，可能导致系统崩溃。
 3. 观察者模式没有相应的机制让观察者知道所观察的目标对象是怎么发生变化的，而仅仅只是知道观察目标发生了变化。
+
+```javascript
+class Product {
+  constructor() {
+    this.price = 0;
+    this.actions = [];
+  }
+
+  setBasePrice(val) {
+    this.price = val;
+    this.notifyAll();
+  }
+
+  register(observer) {
+    this.actions.push(observer);
+  }
+
+  unregister(observer) {
+    this.actions = this.actions.filter((el) => !(el instanceof observer));
+  }
+
+  notifyAll() {
+    return this.actions.forEach((el) => el.update(this));
+  }
+}
+
+class Fees {
+  update(product) {
+    // product.price = product.price * 1.2;
+    console.log("product.price :>> ", product.price);
+  }
+}
+
+class Proft {
+  update(product) {
+    // product.price = product.price * 2;
+    console.log("product.price :>> ", product.price);
+  }
+}
+
+const product = new Product();
+
+const fees = new Fees();
+const proft = new Proft();
+
+product.register(fees);
+product.register(proft);
+
+product.setBasePrice(100);
+
+setTimeout(() => {
+  product.setBasePrice(120);
+}, 1000);
+```
 
 # 参考
 
