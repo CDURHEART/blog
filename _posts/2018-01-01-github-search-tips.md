@@ -7,7 +7,9 @@ tags: Github
 
 <!--more-->
 ## 1. 相关名词
-...
+
+[Github词汇表](https://docs.github.com/cn/get-started/quickstart/github-glossary){:target="_blank"}{:.success}
+
 ## 2. 限定搜索
 ### 2.1 搜索限定
 
