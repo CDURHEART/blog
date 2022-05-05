@@ -96,7 +96,7 @@ chart: # false (default), true
 
 ## => Paginate
 ##############################
-paginate: 8
+paginate: 10
 paginate_path: /page:num # don't change this unless for special need
 
 
@@ -153,7 +153,7 @@ pageview:
   leancloud:
     app_id    : WR9E8Tri72H6EvLB12p004QS-gzGzoHsz # LeanCloud App id
     app_key   : IOEAykGJdvtPa0u35952SAtq # LeanCloud App key
-    app_class : Visitlog # LeanCloud App class
+    app_class : BlogVisitLog # LeanCloud App class
 
 
 ## => Search
