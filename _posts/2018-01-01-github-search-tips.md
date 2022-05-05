@@ -1,7 +1,7 @@
 ---
 title: 有关Github
 tags: Github
-key: github-search-tips:f1f10161-ea56-45b3-9907-98689f85c089
+key: 8ba06c1a-69d6-49f5-a286-bd20d597ad2f
 ---
 
 > 我准备好在Github大干一场了，本篇记录并分享有关我Github的使用。
