@@ -35,7 +35,7 @@ timezone: # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones for
 ##############################
 author:
   type      : # "person" (default), "organization"
-  name      : cdurheart
+  name      : cdurhrt
   url       :
   avatar    : # path or url of avatar image (square)
   bio       : I am an amazing person.
@@ -49,13 +49,13 @@ author:
   zhihu     : # xiao-dong-men-ma-la # "user_name" the last part of your profile url, e.g. https://www.zhihu.com/people/user_name
   douban    : # "user_name" the last part of your profile url, e.g. https://www.douban.com/people/user_name
   linkedin  : # "user_name" the last part of your profile url, e.g. https://www.linkedin.com/in/user_name
-  github    : cdurheart # "user_name" the last part of your profile url, e.g. https://github.com/user_name
+  github    : cdurhrt # "user_name" the last part of your profile url, e.g. https://github.com/user_name
   npm       : # "user_name" the last part of your profile url, e.g. https://www.npmjs.com/~user_name
 
 
 ## => GitHub Repository (if the site is hosted by GitHub)
 ##############################
-repository: cdurheart/blog
+repository: cdurhrt/blog
 repository_tree: master
 
 
