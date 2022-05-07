@@ -4,7 +4,7 @@ tags: 设计模式
 key: 7356e307-c6b3-4f94-a11c-09d1a8b794a0
 ---
 
-> 什么是设计模式？怎么看待设计模式？啥！前端也有设计模式？🤔在我看来设计模式很有可能就是一堆套路，而这个路，就好像是那个因为人走得多了才有了路的那个路。有点绕啊🤣，简单来说设计模式是一套程序开发的最佳实践...
+> 什么是设计模式？怎么看待设计模式？啥！前端也有设计模式？🤔 在我看来设计模式很有可能就是一堆套路，而这个路，就好像是那个因为人走得多了才有了路的那个路。有点绕啊 🤣，简单来说设计模式是一套程序开发的最佳实践...
 
 <!--more-->
 
@@ -42,10 +42,12 @@ key: 7356e307-c6b3-4f94-a11c-09d1a8b794a0
 
 # 设计模式
 
-将设计模式可以主要分为三大类：**_创建型模式（Creational Patterns）、结构型模式（Structural Patterns）、行为型模式（Behavioral Patterns）_**。至于为什么这么分类，我们边学习边体会。
+将设计模式可以主要分为三大类：**_创建型模式（Creational Patterns）、结构型模式（Structural Patterns）、行为型模式（Behavioral Patterns）_**。
 
 ## 创建型
+
 ### 工厂模式
+
 这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。在工厂模式中，我们在创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象。<br/>
 
 **意图：** 定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行。<br/>
@@ -55,6 +57,7 @@ key: 7356e307-c6b3-4f94-a11c-09d1a8b794a0
 **关键代码：** 创建过程在其子类执行。<br/>
 
 **优点：**
+
 1. 一个调用者想创建一个对象，只要知道其名称就可以了。
 2. 扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。
 3. 屏蔽产品的具体实现，调用者只关心产品的接口。
@@ -62,14 +65,136 @@ key: 7356e307-c6b3-4f94-a11c-09d1a8b794a0
 **缺点：** 每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。
 
 **实例：**<br/>
->
+
+```javascript
+class Bmw {
+  constructor(model, price, maxSpeed) {
+    this.model = model;
+    this.price = price;
+    this.maxSpeed = maxSpeed;
+  }
+}
+
+const bmwX5 = new Bmw("X5", 108000, 300);
+const bmwX6 = new Bmw(type, 111000, 320);
+```
+
+使用工厂模式：
+
+```javascript
+class BmwFactory {
+  static create(type) {
+    if (type === "X5") return new Bmw(type, 108000, 300);
+    if (type === "X6") return new Bmw(type, 111000, 320);
+  }
+}
+
+class Bmw {
+  constructor(model, price, maxSpeed) {
+    this.model = model;
+    this.price = price;
+    this.maxSpeed = maxSpeed;
+  }
+}
+
+const bmwX5 = BmwFactory.create("X5");
+```
 
 <!-- ### 单例模式 -->
 
 ## 结构型
-...
 
-<!-- ### 装饰器模式 -->
+### 装饰器模式
+
+装饰器模式（Decorator Pattern）允许向一个现有的对象添加新的功能，同时又不改变其结构。这种类型的设计模式属于结构型模式，它是作为现有的类的一个包装。<br/>
+
+**意图：** 动态地给一个对象添加一些额外的职责。就增加功能来说，装饰器模式相比生成子类更为灵活。<br/>
+**主要解决：** 一般的，我们为了扩展一个类经常使用继承方式实现，由于继承为类引入静态特征，并且随着扩展功能的增多，子类会很膨胀。<br/>
+**何时使用：** 在不想增加很多子类的情况下扩展类。<br/>
+**如何解决：** 将具体功能职责划分，同时继承装饰者模式。<br/>
+
+**优点：** 装饰类和被装饰类可以独立发展，不会相互耦合，装饰模式是继承的一个替代模式，装饰模式可以动态扩展一个实现类的功能。<br/>
+**缺点：** 多层装饰比较复杂。<br/>
+``` javascript
+// 汽车服务类
+class CarService {
+  constructor() {
+    this.price = 0;
+  }
+  getPrice() {
+    return this.price;
+  }
+}
+
+// 洗车服务类
+class CarWash extends CarService {
+  constructor() {
+    super();
+    this.price = 8;
+  }
+}
+
+// 汽车服务装饰器
+class CarServiceDecorator extends CarService {
+  constructor(carService) {
+    super();
+    this.carService = carService;
+  }
+
+  getPrice() {
+    return this.carService.getPrice();
+  }
+}
+
+
+// 附加服务A装饰器
+class AffixDecorator extends CarServiceDecorator {
+  constructor(carService) {
+    super(carService);
+  }
+
+  getPrice() {
+    return super.getPrice() + 6;
+  }
+}
+
+// 折扣装饰器
+class DiscountDecorator extends CarServiceDecorator {
+  constructor(carService) {
+    super(carService);
+  }
+
+  getPrice() {
+    return super.getPrice() * 0.9;
+  }
+}
+
+const carWash = new CarWash();
+console.log(carWash.getPrice()); // 8
+
+const carWashAffixA = new AffixDecorator(new CarWash());
+console.log(carWashAffixA.getPrice()); // 14
+
+const carWashAffixAB = new DiscountDecorator(new AffixDecorator(new CarWash()));
+console.log(carWashAffixAB.getPrice()); // 12.6
+```
+
+较新的 ES 标准 或者 TypeScript 中能找得到[装饰器语法](https://www.typescriptlang.org/docs/handbook/decorators.html){:target=\_blank}，尽管目前它可能还是实验性的。但如果熟悉 Angular ，应该了解装饰器被大量使用，`@Component()`、`@Module()` 等，正是装饰器模式的一种体现。
+
+``` typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'hello-world',
+  template: `
+    <h2>Hello World</h2>
+    <p>This is my first component!</p>
+  `
+})
+export class HelloWorldComponent {
+  // The code in this class drives the component's behavior.
+}
+```
 
 <!-- ### 代理模式 -->
 
