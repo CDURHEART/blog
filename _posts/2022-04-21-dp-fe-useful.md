@@ -4,13 +4,11 @@ tags: 设计模式
 key: 7356e307-c6b3-4f94-a11c-09d1a8b794a0
 ---
 
-> 什么是设计模式？怎么看待设计模式？啥！前端也有设计模式？🤔 在我看来设计模式很有可能就是一堆套路，而这个路，就好像是那个因为人走得多了才有了路的那个路。有点绕啊 🤣，简单来说设计模式是一套程序开发的最佳实践...
-
-<!--more-->
+> 什么是设计模式？怎么看待设计模式？啥！前端也有设计模式？🤔 在我看来设计模式很有可能就是一堆套路，而这个路，就好像是那个因为人走得多了才有了路的那个路。有点绕啊 🤣，简单来说设计模式是一套特定情况下程序开发的最佳实践<!--more-->。通常被有经验的面向对象的软件开发人员所采用。
 
 # 设计原则
 
-在去寻找如何去学习设计模式的时，我发现了一个东西叫设计原则，它是一个很好的设计模式的指导，我想...在学习设计模式之前，得先了解一下它。
+在去寻找如何去学习设计模式时，我发现了一个东西叫设计原则，它是一个很好的设计模式的指导，我想...在学习设计模式之前，得先了解一下它。
 
 1. **开闭原则（Open Close Principle）**
 
@@ -32,6 +30,8 @@ key: 7356e307-c6b3-4f94-a11c-09d1a8b794a0
 
    最少知道原则是指：一个实体应当尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立。
 
+   如果其中一个类需要调用另一个类的某一个方法的话，可以通过第三者转发这个调用。
+
 6. **合成复用原则（Composite Reuse Principle）**
 
    合成复用原则是指：尽量使用合成/聚合的方式，而不是使用继承。
@@ -48,13 +48,59 @@ key: 7356e307-c6b3-4f94-a11c-09d1a8b794a0
 
 ### 工厂模式
 
-这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。在工厂模式中，我们在创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象。<br/>
+这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。在工厂模式中，我们在创建对象时不会对外暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象。<br/>
 
 **意图：** 定义一个创建对象的接口，让其子类自己决定实例化哪一个工厂类，工厂模式使其创建过程延迟到子类进行。<br/>
 **主要解决：** 主要解决接口选择的问题。<br/>
 **何时使用：** 我们明确地计划不同条件下创建不同实例时。<br/>
 **如何解决：** 让其子类实现工厂接口，返回的也是一个抽象的产品。<br/>
 **关键代码：** 创建过程在其子类执行。<br/>
+
+**实例：**<br/>
+> 产品BMW，需要生产多种车，x5、x6等。<br/>
+
+不使用工厂实现：
+```javascript
+// BMW类
+class Bmw {
+  constructor(model, price, maxSpeed) {
+    this.model = model;
+    this.price = price;
+    this.maxSpeed = maxSpeed;
+  }
+}
+
+const bmwX5 = new Bmw('X5', 108000, 300);
+const bmwX6 = new Bmw('X6', 111000, 320);
+```
+
+使用工厂模式：
+
+```javascript
+// BMW工厂
+class BmwFactory {
+  static create(type) {
+    if (type === 'X5') {
+      return new Bmw(type, 108000, 300);
+    }
+    if (type === 'X6') {
+      return new Bmw(type, 111000, 320);
+    }
+  }
+}
+
+// BMW类
+class Bmw {
+  constructor(model, price, maxSpeed) {
+    this.model = model;
+    this.price = price;
+    this.maxSpeed = maxSpeed;
+  }
+}
+
+const bmwX5 = BmwFactory.create('X5');
+const bmwX6 = BmwFactory.create('X6');
+```
 
 **优点：**
 
@@ -63,42 +109,6 @@ key: 7356e307-c6b3-4f94-a11c-09d1a8b794a0
 3. 屏蔽产品的具体实现，调用者只关心产品的接口。
 
 **缺点：** 每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。
-
-**实例：**<br/>
-
-```javascript
-class Bmw {
-  constructor(model, price, maxSpeed) {
-    this.model = model;
-    this.price = price;
-    this.maxSpeed = maxSpeed;
-  }
-}
-
-const bmwX5 = new Bmw("X5", 108000, 300);
-const bmwX6 = new Bmw(type, 111000, 320);
-```
-
-使用工厂模式：
-
-```javascript
-class BmwFactory {
-  static create(type) {
-    if (type === "X5") return new Bmw(type, 108000, 300);
-    if (type === "X6") return new Bmw(type, 111000, 320);
-  }
-}
-
-class Bmw {
-  constructor(model, price, maxSpeed) {
-    this.model = model;
-    this.price = price;
-    this.maxSpeed = maxSpeed;
-  }
-}
-
-const bmwX5 = BmwFactory.create("X5");
-```
 
 <!-- ### 单例模式 -->
 
@@ -113,8 +123,9 @@ const bmwX5 = BmwFactory.create("X5");
 **何时使用：** 在不想增加很多子类的情况下扩展类。<br/>
 **如何解决：** 将具体功能职责划分，同时继承装饰者模式。<br/>
 
-**优点：** 装饰类和被装饰类可以独立发展，不会相互耦合，装饰模式是继承的一个替代模式，装饰模式可以动态扩展一个实现类的功能。<br/>
-**缺点：** 多层装饰比较复杂。<br/>
+**实例：**<br/>
+> 针对汽车服务项目，例如洗车服务，可能需要给它附加一些额外的销售策略。比如洗车可以附加一些服务，或者可以让洗车服务参与优惠活动。在这种场景下:
+
 ``` javascript
 // 汽车服务类
 class CarService {
@@ -146,8 +157,7 @@ class CarServiceDecorator extends CarService {
   }
 }
 
-
-// 附加服务A装饰器
+// 附加服务装饰器
 class AffixDecorator extends CarServiceDecorator {
   constructor(carService) {
     super(carService);
@@ -172,14 +182,14 @@ class DiscountDecorator extends CarServiceDecorator {
 const carWash = new CarWash();
 console.log(carWash.getPrice()); // 8
 
-const carWashAffixA = new AffixDecorator(new CarWash());
-console.log(carWashAffixA.getPrice()); // 14
+const carWashAffix = new AffixDecorator(new CarWash());
+console.log(carWashAffix.getPrice()); // 14
 
-const carWashAffixAB = new DiscountDecorator(new AffixDecorator(new CarWash()));
-console.log(carWashAffixAB.getPrice()); // 12.6
+const carWashDiscount = new DiscountDecorator(new AffixDecorator(new CarWash()));
+console.log(carWashDiscount.getPrice()); // 12.6
 ```
 
-较新的 ES 标准 或者 TypeScript 中能找得到[装饰器语法](https://www.typescriptlang.org/docs/handbook/decorators.html){:target=\_blank}，尽管目前它可能还是实验性的。但如果熟悉 Angular ，应该了解装饰器被大量使用，`@Component()`、`@Module()` 等，正是装饰器模式的一种体现。
+较新的 ES 标准 或者 TypeScript 中能找得到[装饰器语法](https://www.typescriptlang.org/docs/handbook/decorators.html){:target="_blank"}，尽管目前它可能还是实验性的。如果熟悉 Angular ，应该了解其中装饰器已经被大量使用，`@Component()`、`@Module()` 等内置装饰器，正是装饰器模式的一种体现。
 
 ``` typescript
 import { Component } from '@angular/core';
@@ -196,6 +206,9 @@ export class HelloWorldComponent {
 }
 ```
 
+**优点：** 装饰类和被装饰类可以独立发展，不会相互耦合，装饰器模式是继承的一个替代模式，装饰器模式可以动态扩展一个实现类的功能。<br/>
+**缺点：** 多层装饰比较复杂。<br/>
+
 <!-- ### 代理模式 -->
 
 ## 行为型
@@ -210,16 +223,6 @@ export class HelloWorldComponent {
 **何时使用：**一个系统有许多许多类，而区分它们的只是它们直接的行为。<br/>
 **如何解决：**将这些算法封装成一个一个的类，任意地替换。<br/>
 **关键代码：**实现同一个接口。<br/>
-**优点：**
-
-1. 算法可以自由切换。
-2. 避免使用多重条件判断。
-3. 扩展性良好。
-
-**缺点：**
-
-1. 策略类会增多。
-2. 所有策略类都需要对外暴露。
 
 **实例：**<br/>
 
@@ -228,6 +231,7 @@ export class HelloWorldComponent {
 上来就写，我们可能会写成这样：
 
 ```javascript
+// 购物车类
 class ShoppingCart {
   constructor() {
     this.discountType = "guest";
@@ -261,12 +265,13 @@ cart.setAmount(100);
 cart.setDiscountType("vvip");
 
 const result = cart.checkout();
-console.log(result);
+console.log(result); // 80
 ```
 
 使用策略模式后：
 
 ```javascript
+// 购物车类
 class ShoppingCart {
   constructor(discount) {
     this.discount = discount;
@@ -305,6 +310,16 @@ cart.setAmount(100);
 const result = cart.checkout();
 console.log(result); // 90
 ```
+**优点：**
+
+1. 算法可以自由切换。
+2. 避免使用多重条件判断。
+3. 扩展性良好。
+
+**缺点：**
+
+1. 策略类会增多。
+2. 所有策略类都需要对外暴露。
 
 ### 观察者模式
 
@@ -314,6 +329,78 @@ console.log(result); // 90
 **主要解决：**一个对象状态改变给其他对象通知的问题，而且要考虑到易用和低耦合，保证高度的协作。<br/>
 **何时使用：**一个对象（目标对象）的状态发生改变，所有的依赖对象（观察者对象）都将得到通知，进行广播通知。<br/>
 **如何解决：**使用面向对象技术，可以将这种依赖关系弱化。<br/>
+
+**实例：**<br/>
+> 定义产品类，它有一个价格属性，当价格改变时，通知所有的观察者。
+
+```javascript
+// 被观察者类
+class Product {
+  constructor() {
+    this.price = 0;
+    this.actions = [];
+  }
+
+  // 更新价格并通知
+  setBasePrice(val) {
+    this.price = val;
+    this.notifyAll();
+  }
+
+  // 注册观察者动作
+  register(observer) {
+    this.actions.push(observer);
+  }
+
+  // 取消注册动作
+  unregister(observer) {
+    this.actions = this.actions.filter(el => !(el instanceof observer));
+  }
+
+  // 通知动作
+  notifyAll() {
+    return this.actions.forEach(el => el.update(this));
+  }
+}
+
+// 观察者类 Fees
+class Fees {
+  update(product) {
+    // product.price = product.price * 1.2;
+    console.log('Fees: product.price :>> ', product.price);
+  }
+}
+
+// 观察者类 Product
+class Proft {
+  update(product) {
+    // product.price = product.price * 2;
+    console.log('Proft: product.price :>> ', product.price);
+  }
+}
+
+const product = new Product();
+
+const fees = new Fees();
+const proft = new Proft();
+
+// 注册观察者
+product.register(new Fees());
+product.register(new Proft());
+
+product.setBasePrice(100);
+
+// 输出：
+// Fees: product.price :>>  100
+// Proft: product.price :>>  100
+
+product.unregister(Fees);
+
+product.setBasePrice(200);
+
+// 输出：
+// Proft: product.price :>>  200
+```
 **优点：**
 
 1. 观察者和被观察者是抽象耦合的。
@@ -324,60 +411,6 @@ console.log(result); // 90
 1. 如果一个被观察者对象有很多的直接和间接的观察者的话，将所有的观察者都通知到会花费很多时间。
 2. 如果在观察者和观察目标之间有循环依赖的话，观察目标会触发它们之间进行循环调用，可能导致系统崩溃。
 3. 观察者模式没有相应的机制让观察者知道所观察的目标对象是怎么发生变化的，而仅仅只是知道观察目标发生了变化。
-
-```javascript
-class Product {
-  constructor() {
-    this.price = 0;
-    this.actions = [];
-  }
-
-  setBasePrice(val) {
-    this.price = val;
-    this.notifyAll();
-  }
-
-  register(observer) {
-    this.actions.push(observer);
-  }
-
-  unregister(observer) {
-    this.actions = this.actions.filter((el) => !(el instanceof observer));
-  }
-
-  notifyAll() {
-    return this.actions.forEach((el) => el.update(this));
-  }
-}
-
-class Fees {
-  update(product) {
-    // product.price = product.price * 1.2;
-    console.log("product.price :>> ", product.price);
-  }
-}
-
-class Proft {
-  update(product) {
-    // product.price = product.price * 2;
-    console.log("product.price :>> ", product.price);
-  }
-}
-
-const product = new Product();
-
-const fees = new Fees();
-const proft = new Proft();
-
-product.register(fees);
-product.register(proft);
-
-product.setBasePrice(100);
-
-setTimeout(() => {
-  product.setBasePrice(120);
-}, 1000);
-```
 
 # 参考
 
