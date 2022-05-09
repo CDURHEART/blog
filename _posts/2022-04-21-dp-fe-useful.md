@@ -57,7 +57,7 @@ key: 7356e307-c6b3-4f94-a11c-09d1a8b794a0
 **关键代码：** 创建过程在其子类执行。<br/>
 
 **实例：**<br/>
-> 产品BMW，需要生产多种车，x5、x6等。<br/>
+> BMW，需要生产多种产品，x5、x6等。<br/>
 
 不使用工厂实现：
 ```javascript
@@ -371,7 +371,7 @@ class Fees {
   }
 }
 
-// 观察者类 Product
+// 观察者类 Proft
 class Proft {
   update(product) {
     // product.price = product.price * 2;
