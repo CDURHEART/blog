@@ -4,7 +4,7 @@ tags: Angular
 key: 703f1263-a516-41c6-ab28-40f0e9fb73c2
 ---
 
-# Angular 变更检测与变更检测策略
+<!-- # Angular 变更检测与变更检测策略 -->
 
 ## 变更检测（Change Detection）
 
